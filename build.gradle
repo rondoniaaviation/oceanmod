@@ -1,0 +1,30 @@
+plugins {
+    id 'eclipse'
+    id 'idea'
+    id 'net.minecraftforge.gradle' version '[6.0.24,6.2)'
+}
+
+version = '1.0.0'
+group = 'com.example.oceanmod'
+base { archivesName = 'oceanmod' }
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+minecraft {
+    mappings channel: 'official', version: '1.21'
+    copyIdeResources = true
+    runs {
+        configureEach {
+            workingDirectory project.file('run')
+            property 'forge.logging.console.level', 'debug'
+        }
+        client { property 'forge.enabledGameTestNamespaces', 'oceanmod' }
+        server { property 'forge.enabledGameTestNamespaces', 'oceanmod'; args '--nogui' }
+    }
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.21-51.0.22'
+}
+
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
